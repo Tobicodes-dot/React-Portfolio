@@ -1,5 +1,4 @@
 import { Code, Smartphone, Figma, Lightbulb } from "lucide-react";
-import { Globe } from "lucide-react";
 
 function Skills() {
   return (
