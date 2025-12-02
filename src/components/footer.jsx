@@ -23,15 +23,15 @@ function Footer () {
                 <h4>Find me online</h4>
                 <div className="social-links">
 
-                    <a href="https://instagram.com" target="_blank" className="social-icon">
+                    <a href="https://instagram.com/tobii_irl" target="_blank" className="social-icon">
                         <Instagram />
                     </a>
 
-                    <a href="https://github.com" target="_blank" className="social-icon">
+                    <a href="https://github.com/tobicodes_dot" target="_blank" className="social-icon">
                         <Github />
                     </a>
 
-                    <a href="https://linkedin.com" target="_blank" className="social-icon">
+                    <a href="https://linkedin.com/in/moyosore-oluwa-aduroja-b86a75385" target="_blank" className="social-icon">
                         <Linkedin />
                     </a>
 

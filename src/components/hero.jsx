@@ -1,3 +1,5 @@
+import michael from "../assets/michael.png";
+
 function Hero() {
     return (
         <div className="hero">
@@ -13,10 +15,13 @@ function Hero() {
                 </div>
                 
                 <div className="hero-right">
-                    <div className="image-container">
-                        <div className="profile-image"></div>
+                    <div className="image-wrapper">
+                        <img src={michael} alt="Profile" className="hero-photo" />
+                        <div className="photo-blur-bg"></div>
                     </div>
                 </div>
+
+
             </div>
             <div className="hero-arrow">
                 <div className="scroll-wrapper">

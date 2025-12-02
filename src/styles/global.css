@@ -1,13 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=K2D:wght@300;400&display=swap');
+
+:root {
+    /* --- Light Mode Colors --- */
+    --clr-bg-primary: #f8f8f8;       /* Main light background (About, Projects, scroll-left) */
+    --clr-bg-secondary: #ffffff;     /* White elements (Navbar, Cards, scroll-left) */
+    --clr-bg-accent: #1a1a1a;        /* Black section background (Hero Right) */
+    --clr-text-primary: #000000;     /* Pure Black Text */
+    --clr-text-secondary: #555555;   /* Gray Body/Subtitle Text */
+    --clr-text-light: #f8f8f8;       /* Light text color (Black card text) */
+    --clr-border-light: #eeeeee;     /* Light borders (Card borders) */
+    --clr-shadow-light: rgba(0, 0, 0, 0.1); /* Light shadow */
+    --clr-bg-phone: #1a1a1a;        /* Dark background for phone mockup */
+    --clr-text-phone: #f8f8f8;       /* Light text for phone mockup */
+    --clr-text-small: #aaaaaa;       /* Small text color */
+}
+
+body.dark-mode {
+    /* --- Dark Mode Colors --- */
+    --clr-bg-primary: #121212;       /* Very Dark Background */
+    --clr-bg-secondary: #1f1f1f;     /* Darker Card/Navbar Background */
+    --clr-bg-accent: #f8f8f8;        /* White section background (Hero Right *becomes* light) */
+    --clr-text-primary: #ffffff;
+    --clr-text-secondary: #aaaaaa;
+    --clr-text-light: #1a1a1a;       /* Black text (Black card text) */
+    --clr-border-light: #333333;
+    --clr-shadow-light: rgba(255, 255, 255, 0.1);
+    --clr-bg-phone: #1a1a1a;        /* Dark background for phone mockup */
+    --clr-text-phone: #f8f8f8;       /* Light text for phone mockup */
+    --clr-text-small: #aaaaaa;       /* Small text color */
+}
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition for dark mode */
 }
 
 body {
     font-family: "K2D", sans-serif;
+}
+
+/* --- Floating Toggle Button --- */
+#dark-mode-toggle {
+    position: fixed;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    z-index: 3000;
+    transition: background 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+    background-color: #1a1a1a;
+    transform: scale(1.05);
+}
+
+/* Adjust the icon color when dark mode is active (set in JS below) */
+body.dark-mode #dark-mode-toggle {
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
+}
+
+/* Responsiveness for mobile */
+@media (max-width: 768px) {
+    #dark-mode-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
 }
 
 .navbar {
@@ -20,14 +96,14 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 120px;
-    background-color: white;
+    background-color: var(--clr-bg-secondary); /* White -> Variable */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* When scrolling */
 .navbar.scrolled {
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--clr-bg-secondary);
+    box-shadow: 0 4px 8px var(--clr-shadow-light);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -46,21 +122,29 @@ body {
 
 
 .logo {
+    
     font-size: 24px;
     font-weight: bold;
     color: #333;
 }
 
-.logo-img {
-  width: 40px;       /* adjust size */
-  height: auto;
-  object-fit: contain;
-  transition: .3s ease;
-}
+
 
 .logo-img:hover{
     width: 45px;
     height: auto;
+}
+
+.logo2{
+    background-image: url('../assets/logo.png');
+    width: 55px;
+    height: 55px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+body.dark-mode .logo2{
+    background-image: url('../assets/logo-d.png');
 }
 
 .list{
@@ -72,7 +156,7 @@ body {
   position: relative;
   display: inline-block;
   text-decoration: none;
-  color: #555;
+  color: var(--clr-text-secondary);
   font-weight: 700;
   font-size: 16px;
 }
@@ -87,7 +171,7 @@ body {
   transform-origin: left center;
   transform: scaleX(0);        /* hidden */
   transition: transform 260ms ease;
-  background: #111;
+  background: var(--clr-text-primary);
 }
 
 .list a:hover::after,
@@ -97,9 +181,9 @@ body {
 
 .hire {
     padding: 10px 20px;
-    color: #000000;
-    background-color: #ffffff;
-    border: 2px solid #000000;
+    color: var(--clr-text-primary); /* #000000 -> Variable */
+    background-color: var(--clr-bg-secondary); /* #ffffff -> Variable */
+    border: 2px solid var(--clr-text-primary);
     border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
@@ -107,23 +191,137 @@ body {
 }
 
 .hire:hover {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--clr-text-primary);
+    color: var(--clr-bg-secondary);
 }
 
-.hamburger {
-    display: none;
+/* --- Hamburger Menu Toggle Button --- */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
     flex-direction: column;
-    gap: 5px;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
     cursor: pointer;
+    padding: 0;
+    z-index: 1001; /* Above the navbar, below the menu list */
 }
 
-.hamburger span {
-    width: 28px;
+.bar {
+    width: 100%;
     height: 3px;
-    background: #333;
-    border-radius: 3px;
+    background-color: var(--clr-text-primary);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
 }
+
+/* --- "X" Transformation Logic --- */
+.menu-toggle.open .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg); /* Moves and rotates top bar */
+}
+
+.menu-toggle.open .bar:nth-child(2) {
+    opacity: 0; /* Hides middle bar */
+}
+
+.menu-toggle.open .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg); /* Moves and rotates bottom bar */
+}
+
+/* Dark Mode adjustment for bars */
+body.dark-mode .menu-toggle .bar {
+    background-color: var(--clr-text-primary); /* White in dark mode */
+}
+
+
+/* ======================================================= */
+/* === MEDIA QUERY FOR MOBILE AND SMALL SCREENS (< 1024px) === */
+/* ======================================================= */
+@media (max-width: 1024px) {
+    .navbar {
+        /* Reduce padding for smaller screens */
+        padding: 15px 30px;
+    }
+    
+    /* Show the hamburger menu button */
+    .menu-toggle {
+        display: flex;
+        position: relative; /* Ensure z-index works relative to the nav */
+    }
+    
+    /* Hide the desktop Hire Me button */
+    .desktop-hire {
+        display: none;
+    }
+    
+    /* --- The Mobile Slide-In Menu --- */
+    .list {
+        /* Fixed full-screen container */
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px; /* Width of the menu sliding in */
+        height: 100vh;
+        z-index: 1000;
+        
+        /* Layout */
+        flex-direction: column;
+        align-items: flex-start; /* Align text to the left */
+        padding: 100px 30px 30px;
+        
+        /* Colors/Background */
+        background-color: var(--clr-bg-secondary); /* White background */
+        box-shadow: -4px 0 10px var(--clr-shadow-light);
+        
+        /* Slide-in animation setup (start off-screen) */
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth easing */
+    }
+    
+    /* When the menu is open */
+    .list.open {
+        transform: translateX(0); /* Slides into view */
+    }
+    
+    /* Style the links in the mobile menu */
+    .list a {
+        display: block; /* Make links full width */
+        font-size: 1.5rem;
+        margin: 15px 0;
+        color: var(--clr-text-primary); /* Darker text */
+        width: 100%;
+    }
+    
+    .list a::after {
+        /* Hide the underline effect on mobile menu links */
+        display: none; 
+    }
+
+    /* Show and style the mobile Hire Me button */
+    .mobile-hire {
+        display: block;
+        margin-top: 40px;
+        padding: 12px 25px;
+        align-self: flex-start;
+    }
+    
+    /* --- Dark Mode Mobile Menu --- */
+    body.dark-mode .list {
+        background-color: var(--clr-bg-secondary);
+    }
+    body.dark-mode .list a {
+        color: var(--clr-text-primary);
+    }
+}
+
+@media (min-width: 1024px) {
+    .hire.mobile-hire {
+        display: none;
+    }
+}
+
 
 /* Main Hero Container */
 .hero {
@@ -152,6 +350,7 @@ body {
     flex-direction: column;
     justify-content: center; 
     padding: 0 5%;
+    background-color: var(--clr-bg-secondary);
 }
 
 .name-block {
@@ -164,7 +363,7 @@ body {
     font-size: 1.5rem; /* Hi, I'm */
     font-weight: 300;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: var(--clr-text-secondary);
 }
 
 .full-name {
@@ -172,16 +371,15 @@ body {
     font-weight: 900;
     line-height: 1.1; /* Tighter line spacing for multiline name */
     margin: 0;
-    color: #000;
-    /* Optional: Add a subtle text shadow or contrast for flair */
-    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); */
+    color: var(--clr-text-primary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .profession {
     font-size: 2rem; /* Profession title */
     font-weight: 500;
     margin-top: 10px;
-    color: #555;
+    color: var(--clr-text-secondary);
 }
 
 
@@ -211,6 +409,39 @@ body {
     animation: zoomIn 1.4s ease forwards;
     opacity: 0;
 }
+
+.image-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* The actual image */
+.hero-photo {
+    width: 380px;          /* adjust for size */
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    animation: fadeSlide 1.2s ease forwards;
+    opacity: 0;
+}
+
+/* The blur/overlay behind the image */
+.photo-blur-bg {
+    position: absolute;
+    width: 420px;          /* slightly bigger than the image */
+    height: 420px;
+    background: rgba(255, 255, 255, 0.603); 
+    backdrop-filter: blur(25px);
+    filter: blur(40px);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.7;
+}
+
 
 @keyframes zoomIn {
   0% {
@@ -247,6 +478,9 @@ body {
     justify-content: center;
     z-index: 50;
     animation: bounce 2s infinite;
+    @media (max-width: 780px) {
+        display: none;
+    }
 }
 
 /* Wrapper perfectly split */
@@ -263,8 +497,8 @@ body {
     width: 50%;
     text-align: right;
     padding-right: 10px;
-    background: #ffffff;
-    color: #000;
+    background: var(--clr-bg-secondary);
+    color: var(--clr-text-primary);
 }
 
 /* Right: inside black section */
@@ -310,15 +544,141 @@ body {
   }
 }
 
+/* ======================================================= */
+/* === MEDIA QUERY FOR MOBILE AND SMALL SCREENS (< 768px) === */
+/* ======================================================= */
+@media (max-width: 768px) {
+
+    /* --- Hero Container --- */
+    .hero {
+        /* On mobile, the entire background should be the dark accent color */
+        background-color: var(--clr-bg-phone); 
+    }
+
+    /* --- Hero Content Structure --- */
+    .hero-content {
+        /* Stack vertically, but we'll use absolute positioning for overlap */
+        flex-direction: column; 
+        height: 100vh; /* Keep 100vh for full-screen effect */
+    }
+
+    /* --- Left Section (Name/Text Block) --- */
+    .hero-left {
+        /* Position the text block above the image */
+        flex: none; /* Ignore flex sizing */
+        width: 100%;
+        min-height: 50vh; /* Give ample space for the name */
+        justify-content: flex-start; /* Align content to the top */
+        padding: 100px 20px 0; /* Add top padding */
+        
+        /* The Text Block background should remain distinct (or transparent/dark) */
+        background-color: transparent; 
+        color: var(--clr-text-light); /* Ensure text is visible over the black background */
+    }
+    
+    .name-block {
+        text-align: left; /* Keep left alignment */
+        margin-left: 0;
+    }
+
+    .greeting {
+        font-size: 1rem; 
+        color: var(--clr-text-small); /* Lighter gray greeting */
+    }
+
+    .full-name {
+        font-size: 2.5rem; /* Large enough to command attention */
+        line-height: 1.2;
+        color: var(--clr-text-phone); /* White/Light text */
+    }
+    
+    .profession {
+        font-size: 1.2rem;
+        color: var(--clr-text-small);
+    }
+
+    /* --- Right Section (Image Banner) --- */
+    .hero-right {
+        /* Treat this as a fixed banner at the bottom */
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        min-height: 50vh; /* Takes up the bottom half */
+        
+        /* The image background color should be the dark accent color */
+        background-color: var(--clr-bg-phone);
+    }
+
+    .image-container {
+        /* Shrink the circle significantly */
+        max-width: 250px; 
+        max-height: 250px;
+        width: 250px;
+        height: 250px;
+        
+        /* Move the image circle up to overlap the text section slightly */
+        transform: translateY(-50px); 
+        
+        /* Ensure the border color contrasts with the background */
+        border: 5px solid var(--clr-text-light); 
+        
+        animation: none;
+        opacity: 1;
+    }
+    
+    /* --- Scroll Indicator --- */
+    .hero-arrow {
+        bottom: 20px;
+        width: 100%;
+        justify-content: center;
+        z-index: 60; /* Bring it above the image */
+    }
+    
+    .scroll-wrapper {
+        width: 200px; 
+        font-size: 1.2rem;
+    }
+
+    /* The scroll text should both be white on black, or dark on light */
+    .scroll-left, .scroll-right {
+        background: var(--clr-bg-accent);
+        color: var(--clr-text-light);
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+    }
+    
+    /* Hide the split effect on the scroll wrapper by making both sides the same color */
+    .scroll-wrapper {
+        background-color: var(--clr-bg-accent);
+    }
+    
+    /* Small screens adjustments */
+    @media (max-width: 450px) {
+        .full-name {
+            font-size: 2rem;
+        }
+        .image-container {
+            max-width: 200px;
+            max-height: 200px;
+            width: 200px;
+            height: 200px;
+            transform: translateY(-40px);
+        }
+    }
+}
+
 
 
 /* About section */
 
 /* --- About Section Styling --- */
 .about-section {
-    background-color: #f8f8f8; 
+    background-color: var(--clr-bg-primary);
     padding: 160px 120px; 
-    color: #333; 
+    color: var(--clr-text-secondary);
 }
 
 .about-section h2 {
@@ -327,7 +687,7 @@ body {
     display: inline-block;
     padding-bottom: 5px;
     margin-bottom: 30px;
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid var(--clr-text-primary);
 }
 
 .about-section p {
@@ -336,12 +696,12 @@ body {
     font-weight: 300;
     line-height: 1.8; /* Increased line height for easy reading */
     margin-bottom: 20px;
-    color: #555; /* Slightly lighter than the heading */
+    color: var(--clr-text-secondary); /* Slightly lighter than the heading */
 }
 
 .about-section p strong {
     font-weight: 700;
-    color: #000;
+    color: var(--clr-text-primary);
 }
 
 
@@ -364,10 +724,10 @@ body {
 
 /* --- SKILLS SECTION CONTAINER --- */
 .skills-section {
-    background-color: #ffffff; 
+    background-color: var(--clr-bg-secondary); 
     padding: 100px 120px; 
     margin: 0 auto; 
-    color: #333; 
+    color: var(--clr-text-secondary); 
 }
 
 .skills-layout-wrapper {
@@ -387,7 +747,7 @@ body {
     display: inline-block;
     padding-bottom: 5px;
     margin-bottom: 30px;
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid var(--clr-text-primary);
 }
 
 .skills-main-heading {
@@ -395,15 +755,15 @@ body {
     font-weight: 900;
     line-height: 1.3;
     margin-bottom: 40px;
-    color: #000;
+    color: var(--clr-text-primary);
 }
 
 .cv-button {
     /* Styles the "View my CV" button */
     padding: 15px 30px;
-    background-color: #000;
-    color: #f8f8f8;
-    border: 2px solid #000;
+    background-color: var(--clr-bg-primary);
+    color: var(--clr-text-primary);
+    border: 2px solid var(--clr-text-primary);
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 700;
@@ -412,8 +772,9 @@ body {
 }
 
 .cv-button:hover {
-    background-color: #333;
+    background-color: var(--clr-text-primary);
     border-color: #333;
+    color: var(--clr-bg-primary);
 }
 
 
@@ -433,21 +794,21 @@ body {
 
 .skill-card {
     /* Clean white background for the cards */
-    background-color: #f8f8f8; 
+    background-color: var(--clr-bg-primary); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
+    border: 1px solid var(--clr-border-light); 
     padding: 40px;
     border-radius: 8px;
     min-height: 220px; /* Ensures cards have a decent height */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); /* Very subtle shadow */
     transition: box-shadow 0.3s ease;
-    border: 1px solid #eee; /* Light border to define edges */
 }
 
 .skill-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px var(--clr-shadow-light);
 }
 
 .skill-icon {
-    color: #000; /* Icon color */
+    color: var(--clr-text-primary); /* Icon color */
     margin-bottom: 20px;
 }
 
@@ -455,7 +816,7 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: #000;
+    color: var(--clr-text-primary);
 }
 
 .skill-card p {
@@ -504,7 +865,7 @@ body {
     align-items: flex-start;
     gap: 150px;
     padding: 120px 120px;
-    background: #f9f9f9;
+    background: var(--clr-bg-primary);
 }
 
 /* LEFT SIDE HEADLINE */
@@ -517,7 +878,7 @@ body {
 .exp-subtitle {
     font-size: 1rem;
     font-weight: 600;
-    color: #777;
+    color: var(--clr-text-secondary);
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -527,7 +888,7 @@ body {
     font-size: 3.2rem;
     font-weight: 900;
     line-height: 1.2;
-    color: #111;
+    color: var(--clr-text-primary);
 }
 
 /* RIGHT SIDE TIMELINE */
@@ -544,24 +905,26 @@ body {
     top: 0;
     width: 3px;
     height: 100%;
-    background: #000;
+    background: var(--clr-text-primary);
     border-radius: 10px;
 }
 
 /* Experience Cards */
 .exp-card {
-    background: white;
+    background: var(--clr-bg-secondary);
     padding: 30px 35px;
     margin-bottom: 50px;
-    border-left: 4px solid black;
+    color: var(--clr-text-primary);
+    border-left: 4px solid var(--clr-text-primary);
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .exp-card.dark {
     background: #111;
     border-left: 4px solid white;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
     color: #f8f8f8;
 }
 
@@ -613,10 +976,10 @@ body {
 
 /* --- PROJECTS SECTION CONTAINER --- */
 .projects-section {
-    background-color: #f8f8f8; 
+    background-color: var(--clr-bg-primary); 
     padding: 100px 120px; 
     margin: 0 auto; 
-    color: #333; 
+    color: var(--clr-text-primary); 
 }
 
 /* --- Section Header Styling --- */
@@ -631,13 +994,13 @@ body {
     display: inline-block;
     padding-bottom: 5px;
     margin-bottom: 10px;
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid var(--clr-text-primary);
 }
 
 .projects-header p {
     font-size: 1.15rem;
     font-weight: 300;
-    color: #555;
+    color: var(--clr-text-secondary);
 }
 
 /* --- PROJECTS GRID LAYOUT --- */
@@ -678,9 +1041,9 @@ body {
 
 /* --- Standard White Cards --- */
 .standard-card {
-    background-color: white;
-    color: #333;
-    border: 1px solid #eee;
+    background-color: var(--clr-bg-secondary); /* White background */
+    color: var(--clr-text-primary);
+    border: 1px solid var(--clr-border-light);
 }
 
 /* --- Featured Black Card (The Sick Part) --- */
@@ -902,4 +1265,169 @@ body {
         width: 48px;
         height: 48px;
     }
+}
+
+.hire-modal {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content */
+.hire-modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  animation: hire-fadeIn 0.3s ease;
+}
+
+/* Close button */
+.hire-close {
+  float: right;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #888;
+}
+.hire-close:hover {
+  color: #000;
+}
+ 
+/* Form */
+#hire-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+#hire-form input,
+#hire-form textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+#hire-form textarea {
+  resize: none;
+  height: 80px;
+}
+.hire-submit-btn {
+  padding: 10px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.hire-submit-btn:hover {
+  background: #333;
+}
+
+/* OR section */
+.hire-or-section {
+  margin-top: 1.2rem;
+}
+.hire-or-section p {
+  margin-bottom: 0.4rem;
+  color: #666;
+}
+
+/* WhatsApp button */
+.hire-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.hire-whatsapp-btn img {
+  width: 18px;
+}
+.hire-whatsapp-btn:hover {
+  background: #1DA851;
+}
+
+/* Fade animation */
+@keyframes hire-fadeIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* QR MODAL BACKDROP */
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* QR MODAL CONTENT */
+.qr-modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  animation: qrFadeIn 0.3s ease;
+}
+
+/* CLOSE BUTTON */
+.qr-close {
+  float: right;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #888;
+}
+.qr-close:hover {
+  color: #000;
+}
+
+/* QR CODE WRAPPER */
+.qrcode-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+#qrcode {
+  margin: auto;
+}
+
+/* CV Note */
+.cv-note {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+.cv-note a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Fade Animation */
+@keyframes qrFadeIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
