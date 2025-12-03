@@ -35,25 +35,28 @@ function Skills() {
             <div className="skill-card web-dev">
               <div className="skill-icon"><Code /></div>
               <h3>Web Development</h3>
-              <p>If you are an entrepreneur, you know that your success...</p>
+              <p>I build modern, responsive, and high-performance websites using
+                cutting-edge web technologies. From clean UI components in React.js
+                to elegant styling with Tailwind CSS</p>
             </div>
 
             <div className="skill-card ui-ux-design">
               <div className="skill-icon"><Figma /></div>
               <h3>UI/UX Design</h3>
-              <p>If you are an entrepreneur, you know that your success...</p>
+              <p>I create intuitive and engaging user interfaces with a focus on user experience, ensuring that every interaction is seamless and enjoyable.</p>
             </div>
 
             <div className="skill-card App-development">
               <div className="skill-icon"><Smartphone /></div>
               <h3>App Development</h3>
-              <p>If you are an entrepreneur, you know that your success...</p>
+              <p>I develop mobile applications that are user-friendly, efficient, and tailored to meet the specific needs of your business or project.</p>
             </div>
 
             <div className="skill-card problem-solving">
               <div className="skill-icon"><Lightbulb /></div>
               <h3>Problem Solving</h3>
-              <p>If you are an entrepreneur, you know that your success...</p>
+              <p>Solving problems has never stopped me — it drives me. I break challenges down,
+                find the root cause, and deliver clear, effective solutions that get results.</p>
             </div>
           </div>
 
