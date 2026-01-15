@@ -10,10 +10,10 @@ function Hero() {
                         <h1 className="full-name">
                             Aduroja <br /> Moyosore-Oluwa <br /> Michael
                         </h1>
-                        <h2 className="profession">Software Developer</h2>
+                        <h2 className="profession">Fullstack Developer</h2>
                     </div>
                 </div>
-                
+
                 <div className="hero-right">
                     <div className="image-wrapper">
                         <img src={michael} alt="Profile" className="hero-photo" />
@@ -30,7 +30,7 @@ function Hero() {
                 </div>
             </div>
         </div>
-        
+
     );
 }
 
